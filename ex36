@@ -1,0 +1,215 @@
+
+def start
+    puts "Welcome to the baby proofing game!"
+    puts "First lets find out your name"
+    prompt
+    name = $stdin.gets.chomp
+    puts "Hi #{name}!"
+    puts "You wake up on a bright october morning, you're a little cranky and in the mood for exploring"
+    puts "The aim of the game is to visit as many rooms in the house before your mum finds you."
+
+    puts "You're in your bedroom, would you like to explore, or leave?"
+    nextmove = $stdin.gets.chomp
+    prompt
+    if nextmove == "explore"
+        bedroom
+    else
+        bathroom
+    end
+end
+
+def bedroom
+    mum("bedroom")
+    puts "You look round the bedroom, what would you like to play with? \nplugs \npills \nstraighteners"
+    prompt
+    nextmove = $stdin.gets.chomp
+    
+    if nextmove == "plugs"
+        puts "You walk over to the wall plugs, and stick a hairclip in the hole you get a big shock"
+        puts "You're a little bit frazzled but still alive!"
+        puts "You walk out of the bedroom and down the stairs and into the kitchen"
+        kitchen
+    elsif nextmove == "pills"
+        puts "You take some of your mothers pills, they don't kill you but you're protected from pregnancy now!"
+        puts "You walk out the bedroom and into the bathroom"
+        bathroom
+    elsif nextmove == "straighteners"
+        puts "Uh oh, you fall in the straighteners cord, it wraps round you and clamps on your face, it melts you to death"
+        dead
+    else
+        puts "That wasn't one of the options!"
+    end
+end
+
+def kitchen
+    continue
+    puts "You walk into the kitchen, would if you like to explore or leave?"
+    nextmove = $stdin.gets.chomp
+    if nextmove == "leave"
+        bathroom
+    else
+        mum("kitchen")
+        puts "\n"
+        puts "You look round the kitchen, would you like to play with: \nknives \nblender \nfreezer"
+        prompt
+        nextmove = $stdin.gets.chomp
+        if nextmove == "knives"
+            puts "live"
+            garden
+        elsif nextmove == "blender"
+            puts "Dead"
+            dead
+        elsif nextmove == "freezer"
+           garden
+        else
+            puts "That wasn't one of the options!"
+        end
+    end
+end
+
+def bathroom
+    continue
+    puts "You walk into the bathroom, would you like to explore or leave?"
+    prompt
+    nextmove = $stdin.gets.chomp
+    if nextmove == "leave"
+        garden
+    else
+        mum("bathroom")
+        
+        puts "You look round the bathroom, what would you like to play with? \nbathtub \nrazor \nbleach"
+        prompt
+        nextmove = $stdin.gets.chomp
+        
+        if nextmove == "bathtub"
+            puts "Dead"
+            dead
+        elsif nextmove == "razor"
+            puts "Live, shaved baby"
+            livingroom
+        elsif nextmove == "bleach"
+            puts "Live, clean bathroom, stupid baby you can't kill yourself with bleach!"
+        else
+            puts "That wasn't one of the options!"
+        end
+    end
+end
+
+
+
+def garden
+    continue
+    puts "You walk into the garden, would you like to explore or leave?"
+    prompt
+    nextmove = $stdin.gets.chomp
+    if nextmove == "leave"
+        livingroom
+    else
+        mum("garden")
+        
+        puts "You look round the garden, what would you like to play with? \nlawnmower \ndirt \npond"
+        prompt
+        nextmove = $stdin.gets.chomp
+        
+        if nextmove == "lawnmower"
+            puts "Live"
+            laundry
+        elsif nextmove == "dirt"
+            puts "mum"
+            exit(0)
+        elsif nextmove == "pond"
+            puts "Live!"
+            laundry
+        else
+            puts "That wasn't one of the options!"
+        end
+    end
+end
+
+def livingroom
+    continue
+    puts "You walk into the living room, would you like to explore or leave?"
+    prompt
+    nextmove = $stdin.gets.chomp
+    if nextmove == "leave"
+        garden
+    else
+        mum("bathroom")
+        
+        puts "You look round the bathroom, what would you like to play with? \nfireplace \ntv \ncat"
+        prompt
+        nextmove = $stdin.gets.chomp
+        
+        if nextmove == "fireplace"
+            puts "alive"
+            laundry
+        elsif nextmove == "tv"
+            puts "Live, shaved baby"
+            laundry
+        elsif nextmove == "cat"
+            puts "Live, clean bathroom, stupid baby you can't kill yourself with bleach!"
+        else
+            puts "That wasn't one of the options!"
+        end
+    end
+end
+
+def laundry
+    continue
+    puts "You walk into the laundry room, would you like to explore or leave?"
+    prompt
+    nextmove = $stdin.gets.chomp
+    if nextmove == "leave"
+        puts "You walk out the front door into the road and get hit by a truck"
+        dead
+        else
+        mum("landry room")
+        
+        puts "You look round the laundry room, what would you like to play with? \nwashing machine \niron \ndetergent"
+        prompt
+        nextmove = $stdin.gets.chomp
+        
+        if nextmove == "washing machine"
+            puts "Dead"
+            dead
+            elsif nextmove == "iron"
+            puts "dead"
+            dead
+            elsif nextmove == "detergent"
+            puts "mum"
+            exut(0)
+            else
+            puts "That wasn't one of the options!"
+        end
+    end
+end
+
+
+def dead
+    puts "Congrats you killed the baby! Good job!"
+end
+
+
+
+# array of the rooms that your mum is walking through, this will be randomly generated, if the room matches your room you have been found and the game is over
+def mum(room)
+mum = ['kitchen', 'bathroom', 'bedroom', 'garden', 'laundry room', 'livingroom']
+mumroom = mum[rand(5)]
+    if mumroom == room
+        puts "Your mum has found you before you could hurt yourself! Game over!"
+        exit(0)
+    else
+        puts "Your mum is in the #{mumroom}, you're free to keep exploring"
+    end
+end
+
+
+def prompt
+    puts ""
+    print '>'
+end
+
+def continue
+    print "...press enter to continue..."; $stdin.gets.chomp
+end
+start
